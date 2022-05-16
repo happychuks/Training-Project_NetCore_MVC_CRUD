@@ -1,0 +1,175 @@
+﻿@model IEnumerable<NetCore_MVC_CRUD.Models.EmployeeMVcClass>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Employee Information Management Systems</h1>
+<h4>Profile Creation</h4>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MobileNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResidentialAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaritalStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JobRole)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Band)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ResidentialAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaritalStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobRole)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Band)
+                </td>
+                <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }, new { @class = "btn btn-success" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID }, new { @class = "btn btn-danger" })
+                    </td>
+                @*<td>
+                    <a asp-action="Edit" asp-route-id="@item.EmployeeID">Edit</a> |
+                    <a class="btn btn-success" asp-controller="Salary" asp-action="Create" asp-route-id="@item.EmployeeID">Salary</a> |
+                    <a href="#" class="btn btn-danger" onclick="ConfirmDelete(@item.EmployeeID)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        Remove
+                    </a>
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@*<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h3 class="modal-title">Delete Record</h3>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <h2>Are you sure you want to Remove this record?</h2>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                <a href="#" class="btn btn-success" onclick="DeleteEmployee()">Yes</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<input type="hidden" id="hiddenEmployeeID" />
+@section scripts{
+    <script>
+
+
+
+        var ConfirmDelete = function (EmployeeID) {
+
+            $("#hiddenEmployeeID").val(EmployeeID);
+            $("#myModal").modal('show');
+
+        }
+
+        var DeleteEmployee = function () {
+
+
+
+            var EmployeeID = $("#hiddenEmployeeId").val();
+
+            $.ajax({
+
+                type: "POST",
+                url: "/Employee/deleteEmployeeRecord",
+                data: { Id: EmployeeID },
+                success: function (result) {
+
+                    $("#myModal").modal("hide");
+                    $("#row_" + EmployeeID).remove();
+                    window.location.href = result;
+                }
+
+            })
+
+        }
+
+
+
+    </script>
+}*@
+

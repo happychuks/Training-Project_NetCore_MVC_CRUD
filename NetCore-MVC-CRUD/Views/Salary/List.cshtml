@@ -1,0 +1,113 @@
+﻿@model IEnumerable<NetCore_MVC_CRUD.Models.EmployeeSalaryScale>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Band)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BasicSalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deductions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AmountPaid)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Band)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BasicSalary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deductions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AmountPaid)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.EmployeeID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.EmployeeID">Details</a> |
+                <a href="#" class="btn btn-danger" onclick="ConfirmDelete(@item.EmployeeID)">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    Remove
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    
+                    <h3 class="modal-title">Delete Record</h3>
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                </div>
+                <div class="modal-body">
+                    <h2>Are you sure you want to Remove this record?</h2>
+
+                  
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    <a href="#" class="btn btn-success" onclick="DeleteEmployee()">Yes</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+<input type="hidden" id="hiddenEmployeeId" />
+@section scripts{
+<script>
+        var ConfirmDelete = function (EmployeeId) {
+
+            $("#hiddenEmployeeId").val(EmployeeId);
+            $("#myModal").modal('show');
+
+        }
+
+        var DeleteEmployee = function () {
+
+            var empId = $("#hiddenEmployeeId").val();
+
+            $.ajax({
+
+                type: "POST",
+                url: "/Salary/deleteSalaryRecord",
+                data: { Id: empId },
+                success: function (result) {
+                   
+                    $("#myModal").modal("hide");
+                    $("#row_" + empId).remove();
+                    window.location.href = result;
+                }
+
+            })
+
+        }
+
+  
+    
+</script>
+}
